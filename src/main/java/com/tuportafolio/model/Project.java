@@ -1,7 +1,8 @@
 package com.tuportafolio.model;
 
 import jakarta.persistence.*;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "project")
 public class Project {
@@ -10,10 +11,20 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "El nombre del proyecto es obligatorio")
+    @Size(max = 100, message = "El nombre no puede tener más de 100 caracteres")
     private String name;
+
+    @NotBlank(message = "La descripción es obligatoria")
+    @Size(max = 500, message = "La descripción no puede tener más de 500 caracteres")
     private String description;
+
+    @NotBlank(message = "El enlace de GitHub es obligatorio")
     private String githubLink;
+
     private String demoLink;
+
+    @NotBlank(message = "Debe especificar las tecnologías utilizadas")
     private String technologies;
 
     // Constructor vacío necesario para JPA
