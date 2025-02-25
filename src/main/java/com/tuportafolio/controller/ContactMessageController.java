@@ -28,6 +28,7 @@ public class ContactMessageController {
 
     @PostMapping
     public ContactMessage sendMessage(@RequestBody ContactMessage message) throws MessagingException {
+        System.out.println("📩 Recibido en el controller: " + message);
         ContactMessage savedMessage = contactMessageService.saveMessage(message);
 
         // Enviar un correo con los datos del mensaje
