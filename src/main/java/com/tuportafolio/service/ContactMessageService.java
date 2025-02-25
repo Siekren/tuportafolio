@@ -1,7 +1,9 @@
 package com.tuportafolio.service;
 
+import com.tuportafolio.dto.ContactMessageDTO;
 import com.tuportafolio.model.ContactMessage;
 import com.tuportafolio.repository.ContactMessageRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class ContactMessageService {
         return contactMessageRepository.findAll();
     }
 
-    public ContactMessage saveMessage(ContactMessage message) {
+    public ContactMessage saveMessage(@Valid ContactMessageDTO message) {
         return contactMessageRepository.save(message);
     }
 }

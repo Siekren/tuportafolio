@@ -1,9 +1,11 @@
 package com.tuportafolio.controller;
 
+import com.tuportafolio.dto.ContactMessageDTO;
 import com.tuportafolio.model.ContactMessage;
 import com.tuportafolio.service.ContactMessageService;
 import com.tuportafolio.service.EmailService;
 import jakarta.mail.MessagingException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,34 +31,17 @@ public class ContactMessageController {
     }
 
     @PostMapping
-    public ResponseEntity<?> sendMessage(@RequestBody ContactMessage message) {
-        try {
+    public ResponseEntity<?> sendMessage(@Valid @RequestBody ContactMessageDTO messageDTO) throws MessagingException {
+        contactMessageService.saveMessage(messageDTO);
 
-            ContactMessage savedMessage = contactMessageService.saveMessage(message);
-            System.out.println("Guardado en la base de datos: " + savedMessage);
+        // Enviar correo
+        String subject = "Nuevo mensaje de contacto de " + messageDTO.getName();
+        String body = "<p><strong>Nombre:</strong> " + messageDTO.getName() + "</p>"
+                + "<p><strong>Email:</strong> " + messageDTO.getEmail() + "</p>"
+                + "<p><strong>Mensaje:</strong><br>" + messageDTO.getMessage() + "</p>";
 
-            // Intentar enviar el correo
-            try {
-                String subject = "Nuevo mensaje de contacto de " + message.getName();
-                String body = "<p><strong>Nombre:</strong> " + message.getName() + "</p>"
-                        + "<p><strong>Email:</strong> " + message.getEmail() + "</p>"
-                        + "<p><strong>Mensaje:</strong><br>" + message.getMessage() + "</p>";
+        emailService.sendEmail("siekren@hotmail.com", subject, body);
 
-                System.out.println("Enviando correo...");
-                emailService.sendEmail("siekren@hotmail.com", subject, body);
-                System.out.println("Correo enviado con éxito.");
-            } catch (MessagingException e) {
-                System.err.println("Error al enviar el correo: " + e.getMessage());
-                e.printStackTrace();
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .body("Error al enviar el correo: " + e.getMessage());
-            }
-
-            return ResponseEntity.ok(savedMessage);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error al procesar la solicitud: " + e.getMessage());
-        }
+        return ResponseEntity.ok("Mensaje enviado correctamente");
     }
 }
