@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/contact")
-@CrossOrigin(origins = "http://localhost:3000") // Permitir solicitudes desde el frontend
+@CrossOrigin(origins = "*") // Permitir solicitudes desde el frontend
 public class ContactMessageController {
 
     private final ContactMessageService contactMessageService;
