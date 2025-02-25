@@ -63,19 +63,11 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>  <!-- O una versión estable como 3.11.0 -->
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>3.2.2</version>  <!-- Ajusta según tu versión de Spring Boot -->
 				<configuration>
-					<source>17</source>
-					<target>17</target>
-					<annotationProcessorPaths>
-						<path>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-							<version>1.18.30</version> <!-- Asegurar que haya una versión -->
-						</path>
-					</annotationProcessorPaths>
+					<mainClass>com.tuportafolio.PortafolioApplication</mainClass> <!-- Asegúrate de poner la clase correcta -->
 				</configuration>
 			</plugin>
 		</plugins>
