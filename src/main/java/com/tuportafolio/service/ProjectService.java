@@ -15,11 +15,11 @@ public class ProjectService {
         this.projectRepository = projectRepository;
     }
 
-    public List<Project> getAllProjects() {
-        return projectRepository.findAll();
-    }
-
     public Project saveProject(Project project) {
         return projectRepository.save(project);
+    }
+
+    public List<Project> getAllProjects() {
+        return projectRepository.findAll();
     }
 }

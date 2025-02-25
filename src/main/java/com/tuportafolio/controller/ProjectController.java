@@ -2,14 +2,15 @@ package com.tuportafolio.controller;
 
 import com.tuportafolio.model.Project;
 import com.tuportafolio.service.ProjectService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/projects")
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
-
+@CrossOrigin(origins = "*") // Permite solicitudes de cualquier origen
 public class ProjectController {
 
     private final ProjectService projectService;
@@ -24,11 +25,11 @@ public class ProjectController {
     }
 
     @PostMapping
-    public Project createProject(@RequestBody Project project) {
-        System.out.println("Proyecto recibido: " + project);
+    public ResponseEntity<Project> createProject(@RequestBody Project project) {
+        System.out.println("Proyecto recibido en el controller: " + project);
         Project savedProject = projectService.saveProject(project);
         System.out.println("Proyecto guardado: " + savedProject);
-        return savedProject;
+        return new ResponseEntity<>(savedProject, HttpStatus.CREATED);
     }
-
 }
+
