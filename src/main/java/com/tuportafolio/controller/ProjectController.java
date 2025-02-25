@@ -24,7 +24,11 @@ public class ProjectController {
     }
 
     @PostMapping
-    public Project addProject(@RequestBody Project project) {
-        return projectService.saveProject(project);
+    public Project createProject(@RequestBody Project project) {
+        System.out.println("Proyecto recibido: " + project);
+        Project savedProject = projectService.saveProject(project);
+        System.out.println("Proyecto guardado: " + savedProject);
+        return savedProject;
     }
+
 }

@@ -31,10 +31,6 @@ public class ContactMessageController {
     @PostMapping
     public ResponseEntity<?> sendMessage(@RequestBody ContactMessage message) {
         try {
-            System.out.println("Recibido en el controlador: " + message);
-            System.out.println("Nombre: " + message.getName());
-            System.out.println("Email: " + message.getEmail());
-            System.out.println("Mensaje: " + message.getMessage());
 
             ContactMessage savedMessage = contactMessageService.saveMessage(message);
             System.out.println("Guardado en la base de datos: " + savedMessage);
