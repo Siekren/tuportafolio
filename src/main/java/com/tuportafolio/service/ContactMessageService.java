@@ -21,7 +21,11 @@ public class ContactMessageService {
         return contactMessageRepository.findAll();
     }
 
-    public ContactMessage saveMessage(@Valid ContactMessageDTO message) {
+    public ContactMessage saveMessage(@Valid ContactMessageDTO contactMessageDTO) {
+        ContactMessage message = new ContactMessage();
+        message.setName(contactMessageDTO.getName());
+        message.setEmail(contactMessageDTO.getEmail());
+        message.setMessage(contactMessageDTO.getMessage());
         return contactMessageRepository.save(message);
     }
 }
