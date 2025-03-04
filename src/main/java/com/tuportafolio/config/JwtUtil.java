@@ -1,4 +1,4 @@
-package com.tuportafolio.security;
+package com.tuportafolio.config;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
